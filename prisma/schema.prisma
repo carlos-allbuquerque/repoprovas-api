@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+
+model User {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String
+  createdAt   DateTime     @default(now()) 
+
+  @@map("users")
+}
+
+model Categories {
+  id          Int          @id @default(autoincrement())
+  name        String
+  tests       Tests[]
+  createdAt   DateTime     @default(now())
+}
+
+model Tests {
+  id          Int          @id @default(autoincrement())
+  name        String
+  pdfUrl      String     
+  categoryId  Int
+  teacherDisciplineId      Int
+  Category    Categories   @relation(fields: [categoryId], references: [id])
+  TeacherDiscipline TeacherDisciplines @relation(fields: [teacherDisciplineId], references: [id])
+  createdAt   DateTime     @default(now())
+}
+
+model TeacherDisciplines {
+  id          Int          @id @default(autoincrement())
+  teacherId   Int
+  disciplineId Int
+  tests       Tests[]
+  teacher   Teachers      @relation(fields: [teacherId], references: [id])
+  createdAt   DateTime     @default(now())
+}
+
+model Teachers {
+  id          Int         @id @default(autoincrement())
+  name        String
+  teacherDisciplines      TeacherDisciplines[]
+  createdAt   DateTime    @default(now())
+}
+
+model Disciplines {
+  id          Int       @id @default(autoincrement())
+  name        String
+  termId      Int
+  term        Terms     @relation(fields: [termId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Terms {
+  id          Int      @id @default(autoincrement())
+  number      Int
+  disciplines Disciplines[]
+  createdAt   DateTime  @default(now())
+}
