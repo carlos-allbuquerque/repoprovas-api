@@ -23,7 +23,7 @@ model User {
 
 model Categories {
   id          Int          @id @default(autoincrement())
-  name        String
+  name        String       @unique
   tests       Tests[]
   createdAt   DateTime     @default(now())
 }
@@ -50,14 +50,14 @@ model TeacherDisciplines {
 
 model Teachers {
   id          Int         @id @default(autoincrement())
-  name        String
+  name        String      @unique
   teacherDisciplines      TeacherDisciplines[]
   createdAt   DateTime    @default(now())
 }
 
 model Disciplines {
   id          Int       @id @default(autoincrement())
-  name        String
+  name        String    @unique
   termId      Int
   term        Terms     @relation(fields: [termId], references: [id])
   createdAt   DateTime  @default(now())
@@ -65,7 +65,7 @@ model Disciplines {
 
 model Terms {
   id          Int      @id @default(autoincrement())
-  number      Int
+  number      Int      @unique
   disciplines Disciplines[]
   createdAt   DateTime  @default(now())
 }
