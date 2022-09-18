@@ -8,6 +8,14 @@ export async function add(data: testData) {
     });
 }
 
+export async function checksCategoty(id: number) {
+    return await prisma.categories.findFirst({
+      where: {
+        id
+      },
+    });
+}
+
 export async function findByTeacher(teacherDiscipline: TeacherDisciplines) {
 
     const discipline = await prisma.disciplines.findFirst({
