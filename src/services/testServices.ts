@@ -7,6 +7,9 @@ import error from '../types/errorType.js';
 export async function addTest(test: testData) {
     const categoryExists = testRepository.checksCategoty(test.categoryId);
     if (!categoryExists) throw <error> {code: "notFound", message: "Category does not exist"};
+
+    const disciplineExists = testRepository.checksDiscipline(test.teacherDisciplineId);
+    if (!disciplineExists) throw <error> {code: "notFound", message: "Discipline does not exist"};
     
     await add(test);
 }
