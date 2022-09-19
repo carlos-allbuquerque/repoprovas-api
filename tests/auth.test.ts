@@ -17,7 +17,7 @@ describe("POST /signup", () => {
         const result = await agent.post("/signup").send(body);
 
         expect(result.status).toBe(201);
-    })
+    });
 
     it("different password and confirmPassword must return 422", async () => {
         const user = userFactory.user();
@@ -26,5 +26,17 @@ describe("POST /signup", () => {
         const result = await agent.post("/signup").send(body);
 
         expect(result.status).toBe(422);
-    })
+    });
+
+    it("data format invalid must return 422", async () => {
+        const user = {
+            email: "test@gmail.com",
+            invalidAtribute: "atribute name invalid",
+            confirmPassword: "o2uch523rt"
+        };
+
+        const result = await agent.post("/signup").send(user);
+
+        expect(result.status).toBe(422);
+    });
 });
