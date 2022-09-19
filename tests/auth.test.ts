@@ -1,8 +1,7 @@
 import { prisma } from './../src/database/db';
 import app from '../src/index.js';
 import supertest from "supertest";
-import * as userFactory from "./userFactory.js";
-import { encryptAccountPassword } from '../src/utils/passwordUtils';
+import * as userFactory from "./factories/userFactory.js";
 import { createUser } from '../src/repositories/authRepository';
 
 const agent = supertest(app);

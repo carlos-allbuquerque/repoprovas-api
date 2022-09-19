@@ -7,3 +7,13 @@ export function user() {
     }
     return user;
 }
+
+export function adminFactory() {
+    const email = "admin@admin.com"
+    const password = "admin123"
+  
+    return {
+      email,
+      password,
+    };
+}
