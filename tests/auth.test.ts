@@ -40,3 +40,12 @@ describe("POST /signup", () => {
         expect(result.status).toBe(422);
     });
 });
+
+describe("POST /signin", () => {
+    it("login whith nonexistent email must return statuscode 422", async () => {
+        const user = userFactory.user();
+        const result = await agent.post("/signin").send(user);
+
+        expect(result.status).toBe(401);
+    })
+})

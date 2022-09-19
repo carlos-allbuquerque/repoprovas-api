@@ -12,5 +12,5 @@ export async function signin(req: Request, res: Response) {
     const loginData = req.body;
 
     const token = await acess(loginData);
-    res.status(200).send(token);
+    res.status(200).send({token});
 }
