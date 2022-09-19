@@ -1,3 +1,4 @@
+import { TeacherDisciplines } from '@prisma/client';
 import { testData } from './../types/testTypes.js';
 import { add } from "../repositories/testRepository.js";
 import * as testRepository from '../repositories/testRepository.js';
@@ -25,3 +26,24 @@ const disciplines = await teacherDisciplineRepository.findDisciplines();
 
 return disciplines;
 }
+
+export async function getByTeacher(teacherId: number) {
+    const disciplines = await teacherDisciplineRepository.findByTeacher(teacherId);
+  
+    if (!disciplines)
+      throw { type: "NotFound", message: "This teacher doesn't have any discipline" };
+  
+    const tests = await Promise.all(disciplines.map(async (teacherDiscipline: TeacherDisciplines) => {
+      const discipline = await testRepository.findByTeacher(teacherDiscipline);
+  
+      return {
+        discipline,
+      };
+    }));
+  
+    const disciplinesWithTests = tests.filter((test) => {
+      return test.discipline.tests.length > 0;
+    })
+  
+    return disciplinesWithTests;
+  }
