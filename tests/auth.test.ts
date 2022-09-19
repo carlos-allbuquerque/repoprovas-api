@@ -14,9 +14,17 @@ describe("POST /signup", () => {
         const user = userFactory.user();
 
         const body = {...user, confirmPassword: user.password};
-        console.log(body);
         const result = await agent.post("/signup").send(body);
 
         expect(result.status).toBe(201);
+    })
+
+    it("different password and confirmPassword must return 422", async () => {
+        const user = userFactory.user();
+
+        const body = {...user, confirmPassword: `${user.password}qwe31`};
+        const result = await agent.post("/signup").send(body);
+
+        expect(result.status).toBe(422);
     })
 });

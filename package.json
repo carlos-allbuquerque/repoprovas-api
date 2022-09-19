@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
-    "test": " npx dotenv-cli -e .env.test npx prisma migrate dev && jest"
+    "test": " npx dotenv-cli -e .env.test npx prisma migrate dev && npx dotenv-cli -e .env.test jest"
   },
   "keywords": [],
   "author": "",
