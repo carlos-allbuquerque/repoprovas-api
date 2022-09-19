@@ -1,6 +1,7 @@
 import { prisma } from "../database/db.js";
 import { testData } from "../types/testTypes.js";
 import {TeacherDisciplines } from "@prisma/client";
+import error from "../types/errorType.js";
 
 export async function add(data: testData) {
   await prisma.tests.create({
@@ -17,11 +18,15 @@ export async function checksCategoty(id: number) {
 }
 
 export async function checksDiscipline(id: number) {
-  return await prisma.teacherDisciplines.findFirst({
+  try {
+      return await prisma.teacherDisciplines.findFirst({
     where: {
       id
     },
   });
+  } catch(error) {
+    throw <error> {code: "notFound", message: "Discipline does not exist"};
+  }
 }
 
 export async function findByTeacher(teacherDiscipline: TeacherDisciplines) {

@@ -7,7 +7,7 @@ import * as controller from "../controllers/testController.js";
 
 const testRouter = Router();
 
-testRouter.use(validateToken);
+// testRouter.use(validateToken);
 
 testRouter.post("/add-test", validateSchema(testSchema), add);
 testRouter.get("/test/discipline/:id", controller.getByDiscipline);

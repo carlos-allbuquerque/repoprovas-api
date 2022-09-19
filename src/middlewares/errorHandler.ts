@@ -8,8 +8,8 @@ const errors = {
   }
 
 export default function errorHandler(error, req: Request, res: Response, next: NextFunction) {
-    const message = error.message || "Something went wrong";
-    const status = errors[error.code] || 500;
-    res.status(status).json({ message });
+  const message = error.message || "Something went wrong";
+  const status = errors[error.code] || 500;
+  res.status(status).json({ message });
 
 }

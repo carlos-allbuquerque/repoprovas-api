@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { acess, create } from "../services/authServices.js";
 
 export async function signup(req: Request, res: Response) {
-        const user = req.body;
+    const user = req.body;
 
-        await create(user);
-        res.sendStatus(201);
+    await create(user);
+    res.sendStatus(201);
 }
 
 export async function signin(req: Request, res: Response) {

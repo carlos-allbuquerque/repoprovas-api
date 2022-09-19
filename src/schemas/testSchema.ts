@@ -7,4 +7,4 @@ export const testSchema = Joi.object<testData>({
     categoryId: Joi.number().required(),
     teacherDisciplineId: Joi.number().required()
 
-  });
+});
