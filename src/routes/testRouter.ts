@@ -7,12 +7,10 @@ import * as controller from "../controllers/testController.js";
 
 const testRouter = Router();
 
-// testRouter.use(validateToken);
-
-testRouter.post("/add-test", validateSchema(testSchema), add);
-testRouter.get("/test/discipline/:id", controller.getByDiscipline);
-testRouter.get("/disciplines", controller.getDisciplines);
-testRouter.get("/test/teacher/:id", controller.getByTeacher);
-testRouter.get("/teachers", controller.getTeachers);
+testRouter.post("/add-test", validateToken, validateSchema(testSchema), add);
+testRouter.get("/test/discipline/:id", validateToken, controller.getByDiscipline);
+testRouter.get("/disciplines", validateToken, controller.getDisciplines);
+testRouter.get("/test/teacher/:id", validateToken ,controller.getByTeacher);
+testRouter.get("/teachers", validateToken, controller.getTeachers);
 
 export default testRouter;
